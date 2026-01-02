@@ -2,11 +2,12 @@
 
 ## 🎯 Giới thiệu
 
-**VnBondLab** là bộ công cụ phân tích tài chính chuyên sâu cho thị trường Việt Nam, được xây dựng trên TradingView Pine Script v5. Bộ công cụ tập trung vào 3 mảng chính:
+**VnBondLab** là bộ công cụ phân tích tài chính chuyên sâu cho thị trường Việt Nam, được xây dựng trên TradingView Pine Script v5. Bộ công cụ gồm **4 dự án độc lập**:
 
-- **Kinh tế vĩ mô** (Macro Economy)
-- **Thị trường chứng khoán** (Equity Indices & Sectors)
-- **Thị trường trái phiếu** (Bond Yield Curve)
+- **01_MacroAcademic_Engine**: Phân tích vĩ mô & Risk Score
+- **02_Macro_Alert_System**: Hệ thống cảnh báo vĩ mô
+- **03_Indices_Research_Map**: Mapping vĩ mô → Thị trường chứng khoán
+- **04_YieldCurveLab**: Nghiên cứu đường cong lợi suất trái phiếu
 
 Mỗi dự án được thiết kế độc lập nhưng có thể sử dụng kết hợp để có góc nhìn đa chiều về thị trường.
 
@@ -33,50 +34,69 @@ Phiên bản: v1.2.8 | Tác giả: MacroAcademic
 - Bạn cần hiểu bối cảnh vĩ mô trước khi quyết định đầu tư
 
 **File chính:**
-- `MacroAcademic - VN Economy Engine v1.2.8` (Bản đầy đủ)
-- `MacroAcademic_v4_4_Academic_Lite` (Bản tinh gọn)
+- `MacroAcademic_Engine_v1.2.8_Full.pine` (Bản đầy đủ)
+- `MacroAcademic_Engine_v1.2.8_Lite.pine` (Bản tinh gọn)
 
 📖 **Xem chi tiết:** [README MacroAcademic Engine](./01_MacroAcademic_Engine/)
 
 ---
 
-### 📈 02_Indices_Research
-**Chỉ báo nghiên cứu thị trường chứng khoán**
+### 🔔 02_Macro_Alert_System
+**Hệ thống cảnh báo vĩ mô toàn diện**
 
-Phiên bản: v4.3 - v4.4 | Tác giả: Macro Research Team
+Phiên bản: v4.4 - Full | Tác giả: Macro Research Team
 
-**Mục đích:** Kết hợp phân tích vĩ mô với hành vi của:
-- 6 chỉ số thị trường (VNINDEX, VN30, VN100, VNALLSHARE, VNMIDCAP, VNSMALLCAP)
-- 11 ngành kinh tế (Finance, Industrials, IT, Real Estate, Consumer, Energy, Materials, Healthcare, Utilities, v.v.)
+**Mục đích:** Hệ thống cảnh báo rủi ro vĩ mô với phân tích 4 trụ cột:
+- Căng thẳng thanh khoản (Interbank - Policy Rate)
+- Độ dốc đường cong lợi suất (VN10Y - VN02Y)
+- Chênh lệch quốc tế (VN10Y - US10Y)
+- Spread ngắn-dài (VN10Y - Policy Rate)
 
-**2 dự án con:**
-
-#### A. Macro Alert System v4.4 - Full
-Hệ thống cảnh báo vĩ mô với 4 panel:
-- Panel 1: Macro Weather Summary
-- Panel 2: Market Regime Map (so sánh 6 indices)
-- Panel 3: Sector Rotation Map (top/bottom industries)
-- Panel 4: Transition Summary (ma trận chuyển đổi regime)
-
-#### B. MacroAcademic_v4_3_Indices_Research_B.pine
-Script B kết quả từ Script A (MacroAcademic Engine)
-- Map Risk Score → hiệu suất indices theo regime
-- Phân tích chi tiết từng bucket rủi ro
+**4 Panel chuyên biệt:**
+- **Panel 1**: Macro Weather Summary
+- **Panel 2**: Market Regime Map (so sánh 6 indices)
+- **Panel 3**: Sector Rotation Map (top/bottom industries)
+- **Panel 4**: Transition Summary (ma trận chuyển đổi regime)
 
 **Sử dụng khi:**
-- Bạn muốn chọn chỉ số thị trường phù hợp với regime vĩ mô
+- Bạn cần cảnh báo sớm rủi ro vĩ mô
+- Bạn muốn so sánh hiệu suất 6 indices theo regime
 - Bạn cần tìm ngành mạnh/yếu theo chu kỳ kinh tế
-- Bạn muốn xây dựng chiến lược sector rotation
 
 **File chính:**
-- `Macro Alert System v4.4 - Full (Macro + Indices Research`
-- `MacroAcademic_v4_3_Indices_Research_B.pine`
+- `Macro_Alert_System_v4.4.pine`
 
-📖 **Xem chi tiết:** [README Indices Research](./02_Indices_Research/)
+📖 **Xem chi tiết:** [README Macro Alert System](./02_Macro_Alert_System/)
 
 ---
 
-### 💰 03_YieldCurveLab
+### 📈 03_Indices_Research_Map
+**Mapping vĩ mô → Hiệu suất thị trường (Script B)**
+
+Phiên bản: v1.0 | Tác giả: Macro Research Team
+
+**Mục đích:** Script B trong hệ thống 2 script, map Risk Score từ Script A sang hiệu suất thị trường:
+- Replicate Macro Engine từ Script A
+- Mapping Risk Score → Average Returns, Win Rate, Drawdown
+- Phân tích chi tiết theo bucket (B0-B4)
+
+**Kết hợp với:**
+- 6 chỉ số thị trường: VNINDEX, VN30, VN100, VNALLSHARE, VNMIDCAP, VNSMALLCAP
+- 11 ngành kinh tế: Finance, Industrials, IT, Real Estate, Consumer, Energy, Materials, Healthcare, Utilities, v.v.
+
+**Sử dụng khi:**
+- Bạn đã chạy Script A và có Risk Score
+- Bạn muốn chọn indices/sectors phù hợp với regime hiện tại
+- Bạn cần backtest chiến lược theo bucket
+
+**File chính:**
+- `Indices_Research_Map_v1.0.pine`
+
+📖 **Xem chi tiết:** [README Indices Research Map](./03_Indices_Research_Map/)
+
+---
+
+### 💰 04_YieldCurveLab
 **Laboratory nghiên cứu đường cong lợi suất trái phiếu**
 
 Phiên bản: v1.6.9 | Tác giả: VnBondLab
@@ -99,9 +119,9 @@ Phiên bản: v1.6.9 | Tác giả: VnBondLab
 - Bạn cần nghiên cứu mối quan hệ bond → equity
 
 **File chính:**
-- `VN YieldCurveLab` (v1.6.9)
+- `VN_YieldCurveLab_v1.6.9.pine`
 
-📖 **Xem chi tiết:** [README YieldCurveLab](./03_YieldCurveLab/)
+📖 **Xem chi tiết:** [README YieldCurveLab](./04_YieldCurveLab/)
 
 ---
 
@@ -109,30 +129,39 @@ Phiên bản: v1.6.9 | Tác giả: VnBondLab
 
 ```
 ┌──────────────────────────────────────┐
-│   MacroAcademic Engine (Script A)    │
+│   01_MacroAcademic Engine (Script A) │
 │   Kinh tế vĩ mô → Risk Score         │
 └──────────────┬───────────────────────┘
                │
-               ▼ Input
-    ┌────────────────────────────────────┐
-    │  Indices Research (Script B)        │
-    │  Macro → Market/Sector Performance │
-    └────────────────────────────────────┘
+               ├──────────────────────────┐
+               ▼                          ▼
+    ┌────────────────────────┐  ┌───────────────────────────┐
+    │ 02_Macro Alert System  │  │ 03_Indices Research Map   │
+    │ Cảnh báo vĩ mô 4 panel │  │ (Script B) Map→Indices    │
+    └────────────────────────┘  └───────────────────────────┘
 
-              YieldCurveLab (Standalone)
+              04_YieldCurveLab (Standalone)
          Phân tích chuyên sâu trái phiếu
 ```
 
 **Cách sử dụng kết hợp:**
 
-1. **Bước 1:** Dùng **MacroAcademic Engine** để đánh giá bối cảnh vĩ mô
+**Workflow 1: TỔNG QUAN VĨ MÔ + CẢNH BÁO**
+1. **Bước 1:** Dùng **01_MacroAcademic Engine** để đánh giá bối cảnh vĩ mô
    - Kết quả: Risk Score B0-B4 (Ví dụ: B1 = Rủi ro thấp)
-
-2. **Bước 2:** Dùng **Indices Research** để chọn chỉ số & ngành phù hợp
+2. **Bước 2:** Dùng **02_Macro Alert System** để có cảnh báo chi tiết
+   - 4 Panel: Tổng quan, Market Map, Sector Rotation, Transition
    - Nếu B1: Tăng tỷ trọng cyclical sectors (Finance, Industrials)
    - Nếu B4: Ưu tiên defensive sectors (Utilities, Healthcare)
 
-3. **Bước 3:** Dùng **YieldCurveLab** để kiểm tra rủi ro hệ thống
+**Workflow 2: MAPPING VĨ MÔ → THỊ TRƯỜNG**
+1. **Bước 1:** Dùng **01_MacroAcademic Engine** (Script A) → Risk Score
+2. **Bước 2:** Dùng **03_Indices Research Map** (Script B) → Map Risk Score → Indices performance
+   - Xem AvgR, Win%, DD cho từng bucket
+   - Chọn indices/sectors phù hợp với regime hiện tại
+
+**Workflow 3: PHÂN TÍCH SÂU TRÁI PHIẾU**
+1. Dùng **04_YieldCurveLab** độc lập hoặc kết hợp với 01
    - Nếu YC4 + Slope inverted → Cảnh báo rủi ro chu kỳ cao
    - Nếu Stress High → Giảm đòn bẩy, tăng phòng thủ
 
@@ -143,25 +172,29 @@ Phiên bản: v1.6.9 | Tác giả: VnBondLab
 ### Bạn là ai? Chọn dự án phù hợp:
 
 #### 👤 Nhà đầu tư chứng khoán (Stock Investor)
-**Bắt đầu với:** `02_Indices_Research/Macro Alert System v4.4`
+**Bắt đầu với:** `02_Macro_Alert_System`
 - Xem nhanh: Panel 1 (Macro Weather)
 - Quyết định: Panel 3 (Sector Rotation)
+- Sau đó dùng `03_Indices_Research_Map` để chọn chỉ số phù hợp
 
 #### 👨‍💼 Quản lý danh mục (Portfolio Manager)
-**Bắt đầu với:** `01_MacroAcademic_Engine/MacroAcademic v1.2.8`
+**Bắt đầu với:** `01_MacroAcademic_Engine`
 - Sử dụng Risk Score để điều chỉnh asset allocation
-- Kết hợp với Indices Research cho sector rotation
+- Kết hợp `02_Macro_Alert_System` cho cảnh báo chi tiết
+- Dùng `03_Indices_Research_Map` để chọn indices/sectors
 
 #### 📊 Bond Trader / Analyst
-**Bắt đầu với:** `03_YieldCurveLab/VN YieldCurveLab`
+**Bắt đầu với:** `04_YieldCurveLab`
 - Theo dõi YC regime (YC1-YC4)
 - Research Panel 3 để hiểu mối quan hệ bond → equity
+- Kết hợp với `01_MacroAcademic_Engine` để hiểu bối cảnh vĩ mô
 
 #### 🎓 Researcher / Academic
-**Dùng cả 3 dự án** để nghiên cứu:
-- Macro-finance linkage
-- Regime-based investing
-- Sector rotation strategies
+**Dùng cả 4 dự án** để nghiên cứu:
+- Macro-finance linkage (01 + 03)
+- Regime-based investing (01 + 02 + 03)
+- Sector rotation strategies (02 + 03)
+- Yield curve theory (04)
 
 ---
 
@@ -181,17 +214,17 @@ Phiên bản: v1.6.9 | Tác giả: VnBondLab
 
 ---
 
-## 📊 So sánh nhanh các dự án
+## 📊 So sánh nhanh 4 dự án
 
-| Tiêu chí | MacroAcademic Engine | Indices Research | YieldCurveLab |
-|----------|---------------------|------------------|---------------|
-| **Phạm vi** | Kinh tế vĩ mô | Chứng khoán (indices + sectors) | Trái phiếu (yield curve) |
-| **Input chính** | CPI, GDP, Policy rate, PPI, FX, Oil | Macro + 6 indices + 11 sectors | 1Y-10Y yields, Interbank |
-| **Output** | Risk Score (B0-B4) | Market performance by regime | Stress indices, Correlation |
-| **Số panel** | 7 | 4 | 3 |
-| **User case** | Macro timing, Asset allocation | Sector rotation, Stock picking | Bond trading, Risk management |
-| **Độ phức tạp** | Trung bình - Cao | Trung bình | Cao (Academic-focused) |
-| **Thời gian sử dụng** | Hàng tuần/hàng tháng | Hàng ngày/hàng tuần | Hàng ngày |
+| Tiêu chí | 01_MacroAcademic Engine | 02_Macro Alert System | 03_Indices Research Map | 04_YieldCurveLab |
+|----------|------------------------|----------------------|------------------------|------------------|
+| **Phạm vi** | Kinh tế vĩ mô | Cảnh báo vĩ mô | Mapping vĩ mô → CK | Trái phiếu |
+| **Input chính** | CPI, GDP, Rates, FX, Oil | Macro + Indices + Sectors | Macro + 6 indices + 11 sectors | 1Y-10Y yields |
+| **Output** | Risk Score (0-100) | 4 Panel cảnh báo | AvgR, Win%, DD by bucket | Stress, Correlation |
+| **Số panel** | 7 | 4 | 1 | 3 |
+| **User case** | Asset allocation | Cảnh báo rủi ro | Chọn indices/sectors | Bond trading |
+| **Độ phức tạp** | Trung bình - Cao | Trung bình | Trung bình | Cao (Academic) |
+| **Thời gian** | Hàng tuần/tháng | Hàng ngày/tuần | Khi có Risk Score | Hàng ngày |
 
 ---
 
@@ -226,9 +259,10 @@ Tất cả các dự án đều được xây dựng với các chuẩn mực h�
 ## 📚 Tài liệu & Hướng dẫn
 
 ### Documentation:
-- 📖 [MacroAcademic Engine README](./01_MacroAcademic_Engine/)
-- 📖 [Indices Research README](./02_Indices_Research/)
-- 📖 [YieldCurveLab README](./03_YieldCurveLab/)
+- 📖 [01_MacroAcademic_Engine README](./01_MacroAcademic_Engine/)
+- 📖 [02_Macro_Alert_System README](./02_Macro_Alert_System/)
+- 📖 [03_Indices_Research_Map README](./03_Indices_Research_Map/)
+- 📖 [04_YieldCurveLab README](./04_YieldCurveLab/)
 
 ### Tài liệu tham khảo:
 - **Macro-finance linkage:** Mối quan hệ giữa biến số vĩ mô và thị trường tài sản
@@ -255,13 +289,15 @@ Tất cả các dự án đều được xây dựng với các chuẩn mực h�
 ## 📝 Version History
 
 ### Main Repository:
-- **2025-01-02:** Reorganize project structure into 3 main folders
-- **Phiên bản hiện tại:** v1.0 (Initial release)
+- **2025-01-02:** Reorganize into 4 independent projects
+- **2025-01-02:** Add comprehensive README and documentation
+- **Phiên bản hiện tại:** v2.0 (4 Projects Structure)
 
 ### Sub-projects:
-- **MacroAcademic Engine:** v1.2.8 (PCTL Complete)
-- **Indices Research:** v4.3 - v4.4 (Macro + Indices)
-- **YieldCurveLab:** v1.6.9 (Academic Research Mode)
+- **01_MacroAcademic_Engine:** v1.2.8 (PCTL Complete)
+- **02_Macro_Alert_System:** v4.4 (Full Edition)
+- **03_Indices_Research_Map:** v1.0 (Script B)
+- **04_YieldCurveLab:** v1.6.9 (Academic Research Mode)
 
 ---
 
